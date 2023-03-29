@@ -1,16 +1,19 @@
 <template>
-  <div class="container">
-    <Home-view />
-  </div>
+  <Navegacion />
+  <router-view></router-view>
 </template>
 
 <script>
-import HomeView from "./views/HomeView.vue";
+import Navegacion from "./components/Navegacion.vue";
+
 export default {
-  components: { HomeView },
+  components: { Navegacion },
   name: "App",
+
+  Navegacion,
 };
 </script>
 
-<style>
+<style lang="scss">
+
 </style>
