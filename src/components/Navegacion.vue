@@ -9,7 +9,7 @@
       </a>
       <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel" >
         <div class="offcanvas-header">
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
+          <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
@@ -43,14 +43,43 @@ export default {
 </script>
 
 <style lang="scss" soped>
-.navbar, .enlaces {
+.navbar,
+.enlaces {
   background: #000;
 }
-.logo {
-  width: 10em;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
+.navbar {
+  .logo {
+    width: 10em;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .navbar-toggler-icon {
+    background-image: url("/burger.svg");
+  }
+  .navbar-toggler,
+  .navbar-toggler:focus,
+  .navbar-toggler:active {
+    box-shadow: none;
+    border: none !important;
+  }
+  .offcanvas-header{
+    padding-left: 1.5em;
+    padding-top:  3.5rem;
+  }
+  .offcanvas-header,
+  .offcanvas-body{
+    background: #000;
+  }
+  .btn-close,
+  .btn-close:focus,
+  .btn-close:active {
+    background-image: url("/close.svg") !important;
+    background-size: contain;
+    box-shadow: none !important;
+    opacity: 1 !important;
+  }
 }
 
 .enlaces {
@@ -66,7 +95,11 @@ export default {
   .nav-link:focus,
   .nav-link:hover {
     color: #fff;
-    border-bottom: 1px solid blue !important;
+  }
+  .router-link-exact-active {
+    color: #fff;
+    border-bottom: 1px solid #0d6efd;
+    line-height: 22px;
   }
 }
 </style>
