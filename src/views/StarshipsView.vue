@@ -12,12 +12,17 @@
         <p>{{ nave.model }}</p>
       </div>
     </div>
-    <Nave v-if="pulsado" :nave="naveActual" :pulsado="pulsado" @pulsado="pulsado=$event"/>
+    <Nave
+      v-if="pulsado"
+      :nave="naveActual"
+      :pulsado="pulsado"
+      @pulsado="pulsado = $event"
+    />
   </div>
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import Nave from "../components/Nave.vue";
 
 export default {
@@ -34,26 +39,31 @@ export default {
   },
   methods: {
     ...mapActions(["buscar"]),
-    ...mapMutations(["resetUrl"]),
     mostrar(nave) {
       this.pulsado = true;
       this.naveActual = nave;
     },
+    handleScroll() {
+      if (this.$route.name !== "starships") return;
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+      if (scrollTop + clientHeight >= scrollHeight) {
+        if (this.url !== null) this.buscar();
+      }
+    },
   },
   created() {
-    this.resetUrl()
-    this.buscar();
+    if (this.url !== null) this.buscar();
   },
-  watch: {
-    url(value){
-      if(value !== null) this.buscar()
-    }
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
 };
 </script>
 
 <style lang="scss" scoped>
-
 .alert {
   cursor: pointer;
   color: #999;
@@ -62,5 +72,4 @@ export default {
     margin-bottom: 0;
   }
 }
-
 </style>

@@ -10,9 +10,6 @@ export default createStore({
             state.naves = [...state.naves, ...resp.results]
             state.url = resp.next
         },
-        resetUrl( state ){
-            state.url = "https://swapi.dev/api/starships/?page=1";
-        }
     },
     actions: {
         async buscar({ state, commit }) {
