@@ -20,14 +20,16 @@
       <div class="col-12 col-lg-6">
         <h6>crew: <span>{{ nave.crew }}</span></h6>
         <h6>passenger capacity: <span>{{ nave.passengers }}</span></h6>
-        <h6>cargo capacity: <span>{{ nave.cargo_capacit }} tons</span></h6>
-        <h6>consumables: <span>{{ nave.cost_in_credits }} months</span></h6>
+        <h6>cargo capacity: <span>{{ nave.cargo_capacity }} tons</span></h6>
+        <h6>consumables: <span>{{ nave.consumables }}</span></h6>
+        <h6>created: <span>{{ fecha(nave.created) }}</span></h6>
       </div>
       <div class="col-12 col-lg-6">
         <h6>length: <span>{{ nave.length }} meters</span></h6>
-        <h6>maximum atmosphering speed:<span>{{ nave.max_atmosphering_speed }} km/h</span></h6>
+        <h6>maximum atmosphering speed: <span>{{ nave.max_atmosphering_speed }} km/h</span></h6>
         <h6>hyperdriver rating: <span>{{ nave.hyperdrive_rating }}</span></h6>
         <h6>maximum speed in realspace: <span>{{ nave.MGLT }} mglt</span></h6>
+        <h6>edited: <span>{{ fecha(nave.edited) }}</span></h6>
       </div>
     </div>
     <Pilotos :idPilotos="idPilotos" />
@@ -57,6 +59,10 @@ export default {
     addIdPolotos() {
       this.idPilotos = this.nave.pilots.map((item) => item.replace(/[^0-9]+/g, ""));
     },
+    fecha(fecha){
+      fecha = new Date(fecha)
+      return fecha.toLocaleString()
+    }
   },
   created() {
     this.addIdNave();
