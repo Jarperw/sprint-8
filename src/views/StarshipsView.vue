@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 import Nave from "../components/Nave.vue";
 
 export default {
@@ -30,17 +30,24 @@ export default {
     };
   },
   computed: {
-    ...mapState(["naves"]),
+    ...mapState(["naves", "url"]),
   },
   methods: {
     ...mapActions(["buscar"]),
+    ...mapMutations(["resetUrl"]),
     mostrar(nave) {
       this.pulsado = true;
       this.naveActual = nave;
     },
   },
   created() {
+    this.resetUrl()
     this.buscar();
+  },
+  watch: {
+    url(value){
+      if(value !== null) this.buscar()
+    }
   },
 };
 </script>
