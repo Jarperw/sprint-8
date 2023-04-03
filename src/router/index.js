@@ -19,9 +19,9 @@ const router = createRouter({
       component: () => import('../views/LoginView.vue')
     },
     {
-      path: '/signUp',
-      name: 'signUp',
-      component: () => import('../views/SignUpView.vue')
+      path: '/signIn',
+      name: 'signIn',
+      component: () => import('../views/SignInView.vue')
     },
   ]
 })
