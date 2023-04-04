@@ -271,7 +271,7 @@ export default {
   background: #000;
   position: fixed;
   top: 4.6.9em;
-  z-index: 1;
+  z-index: 5;
   width: 370px;
   height: 100%;
 }
