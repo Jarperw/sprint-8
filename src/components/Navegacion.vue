@@ -47,10 +47,10 @@
         <div v-if="!mobile" class="derecha alinear d-flex align-items-end me-5">
           <ul class="navbar-nav flex-row pe-3 fw-bold">
             <li class="nav-item">
-              <Router-link class="nav-link text-white text-uppercase p-2" to="/login" >Login</Router-link>
+              <Router-link class="nav-link text-white text-uppercase p-2" to="#" >Search</Router-link>
             </li>
             <li class="nav-item">
-              <Router-link class="nav-link text-white text-uppercase p-2 d-flex" to="/signIn">
+              <Router-link class="nav-link text-white text-uppercase p-2 d-flex" :to="logged ? '/signIn': '/login'">
                 <img class="pe-2" src="/icons/user.svg" alt="" /> Sign In
               </Router-link>
             </li>
@@ -72,7 +72,7 @@
         </ul>
         <ul class="navbar-nav derecha ps-5 mb-5 border-top border-secondary">
           <li class="nav-item ms-3 mt-4">
-            <Router-link class="nav-link text-white d-flex" to="/signIn">
+            <Router-link class="nav-link text-white d-flex" :to="logged ? '/signIn': '/login'">
               <img class="pe-2" src="/icons/user.svg" alt="" />SIGN IN
             </Router-link>
           </li>
@@ -140,6 +140,7 @@ export default {
       mobile: window.innerWidth <= 992,
       burger: true,
       clicks: 0,
+      logged: false,
     };
   },
   methods: {

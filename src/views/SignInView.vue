@@ -1,5 +1,11 @@
 <template>
-  <h1>Sign In</h1>
+  <div class="text-center text-white">
+    <div>
+      <h1>Sign In</h1>
+      <a href="#">My account</a><br>
+      <a href="#">Logout</a>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -8,5 +14,5 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 </style>
