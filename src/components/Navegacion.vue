@@ -50,8 +50,8 @@
               <Router-link class="nav-link text-white text-uppercase p-2" to="#" >Search</Router-link>
             </li>
             <li class="nav-item">
-              <Router-link v-if="login" class="nav-link text-white text-uppercase p-2 d-flex" to="/signIn">
-                <img class="pe-2" src="/icons/user.svg" alt="" />{{ datosLogin.name }}
+              <Router-link v-if="logeado" class="nav-link text-white text-uppercase p-2 d-flex" to="/signIn">
+                <img class="pe-2" src="/icons/user.svg" alt="" />{{ nameLogin }}
               </Router-link>
               <Router-link v-else class="nav-link text-white text-uppercase p-2 d-flex" to="/login">
                 <img class="pe-2" src="/icons/user.svg" alt="" /> Sign In
@@ -75,8 +75,8 @@
         </ul>
         <ul class="navbar-nav derecha ps-5 mb-5 border-top border-secondary">
           <li class="nav-item ms-3 mt-4">
-            <Router-link v-if="login" class="nav-link text-uppercase text-white d-flex" to="/signIn">
-              <img class="pe-2" src="/icons/user.svg" alt="" />{{ datosLogin.name }}
+            <Router-link v-if="logeado" class="nav-link text-uppercase text-white d-flex" to="/signIn">
+              <img class="pe-2" src="/icons/user.svg" alt="" />{{ nameLogin }}
             </Router-link>
             <Router-link v-else class="nav-link text-white d-flex" to="/login">
               <img class="pe-2" src="/icons/user.svg" alt="" />SIGN IN
@@ -117,12 +117,10 @@
     <div class="enlaces d-flex justify-content-center border-bottom border-secondary">
       <ul v-if="!mobile" class="nav mb-1 position-relative fw-bold">
         <li class="nav-item">
-          <router-link class="nav-link" to="/">HOME<span></span></router-link>
+          <Router-link class="nav-link" to="/">HOME<span></span></Router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/starships"
-            >STARSHIPS<span></span
-          ></router-link>
+          <Router-link class="nav-link" to="/starships">STARSHIPS<span></span></Router-link>
         </li>
       </ul>
     </div>
@@ -139,7 +137,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: "Navegacion",
@@ -152,7 +150,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['login', 'datosLogin']),
+    ...mapGetters('login',['logeado', 'nameLogin']),
   },
   methods: {
     mostrar() {

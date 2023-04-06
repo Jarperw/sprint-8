@@ -1,24 +1,23 @@
 import { createStore } from 'vuex'
+import login from '../modules/login'
 
 export default createStore({
     state: {
         naves: [],
         url: "https://swapi.dev/api/starships/?page=1",
-        emailRegister: '',
-        login: false,
-        datosLogin: '',
+        naveActual: '',
+        mostrarNave: false,
     },
     mutations: {
         addNaves( state, resp ) {
             state.naves = [...state.naves, ...resp.results];
             state.url = resp.next;
         },
-        addEmail( state, resp ) {
-            state.emailRegister = resp;
+        addNaveActual( state, resp ){
+            state.naveActual = resp
         },
-        setLogin( state, payload ) {
-            state.login = payload.valor;
-            state.datosLogin = payload.datos;
+        setMostrarNave( state, resp ){
+            state.mostrarNave = resp;
         }
     },
     actions: {
@@ -29,7 +28,20 @@ export default createStore({
         },
     },
     getters: {
+        nave( state ){
+            return state.naveActual;
+        },
+        mostrar( state ){
+            return state.mostrarNave;
+        },
+        idNave( state ) {
+            return state.naveActual.url.replace(/[^0-9]+/g, "");
+        },
+        idPolotos( state ) {
+            return state.naveActual.pilots.map((item) => item.replace(/[^0-9]+/g, ""));
+        },
     },
     modules: {
+        login
     }
 })

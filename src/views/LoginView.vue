@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-center mb-5">
       <img class="w-75" src="/img/logo3.png"/>
     </div>
-    <div v-if="!validacion" class="d-flex flex-column">
+    <div v-if="!mostrar" class="d-flex flex-column">
       <p class="text-warning fs-2">ENTER YOUR EMAIL ADDRESS</p>
       <input
         :class="{ 'border-danger text-danger': error }"
@@ -26,7 +26,7 @@
       <div class="d-flex">
         <img class="retroceder col-4 d-flex"
           type="button"
-          @click="refrescarPagina()"
+          @click="mostrar = false"
           src="/icons/flecha.svg"
         />
         <p class="col-7 text-secondary text-end mb-4">{{ email }}</p>
@@ -34,7 +34,7 @@
       <input
         :class="{ 'border-danger text-danger': error }"
         class="form-control"
-        type="text"
+        type="password"
         v-model.trim="password"
         placeholder="Password"
       />
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import Register from "../views/RegisterView.vue";
 
 export default {
@@ -58,16 +58,20 @@ export default {
     return {
       email: "",
       password: "",
-      validacion: false,
+      mostrar: false,
       error: "",
     };
   },
+  computed: {
+    ...mapGetters('login', ['usuariosRegistrados', 'filtrar'])
+  },
   methods: {
-    ...mapMutations(['setLogin'])
+    ...mapMutations('login',['addUsuarios', 'setLogin', 'addEmail'])
     ,
     continuar() {
-      this.email = this.email.toLowerCase();
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      this.email = this.email.toLowerCase();
+      this.addEmail(this.email);
 
       if (!emailRegex.test(this.email)) {
         this.error = "Please enter a valid email address.";
@@ -75,19 +79,16 @@ export default {
       }
 
       if (localStorage.usuarios) {
-        const [usuario] = this.filtrar();
-
+        const [usuario] = this.filtrar;
         if (usuario) {
           console.log("el usuario existe,  inicia sesión");
-          this.validacion = true;
+          this.mostrar = true;
         } else {
           console.log("registrate");
-          this.$store.commit("addEmail", this.email);
           this.$router.push("/register");
         }
       } else {
         console.log("Crear localStorage.usuarios");
-        this.$store.commit("addEmail", this.email);
         this.$router.push("/register");
       }
     },
@@ -96,8 +97,7 @@ export default {
         this.error = "Please enter a password min 6 characters.";
         return;
       }
-
-      const [usuario] = this.filtrar();
+      const [usuario] = this.filtrar;
 
       if (usuario.password == this.password) {
         console.log(`Sesión iniciada por ${usuario.name}, con correo ${usuario.email}`);
@@ -110,12 +110,6 @@ export default {
         this.error = "The credentials you entered are incorrect.";
       }
     },
-    filtrar() {
-      return JSON.parse(localStorage.usuarios).filter((item) => item.email == this.email);
-    },
-    refrescarPagina() {
-      location.reload();
-    },
   },
   watch: {
     email() {
@@ -124,6 +118,9 @@ export default {
     password() {
       this.error = "";
     },
+  },
+  mounted() {
+    if (localStorage.usuarios) this.addUsuarios(JSON.parse(localStorage.usuarios)); 
   },
 };
 </script>

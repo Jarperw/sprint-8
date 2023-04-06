@@ -8,7 +8,7 @@
     </div>
     <div class="text-center text-white">
       <p class="text-warning fs-2">CREATE YOUR ACCOUNT</p>
-      <p class="text-secondary text-center mb-4">{{ emailRegister }}</p>
+      <p class="text-secondary text-center mb-4">{{ email }}</p>
       <div class="d-flex flex-column">
         <input
           class="form-control"
@@ -50,7 +50,7 @@
           <input
             class="form-check-input"
             type="checkbox"
-            value=""
+            value="false"
             id="condiciones"
           />
           <label class="form-check-label text-start" for="condiciones">
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Register",
@@ -91,7 +91,6 @@ export default {
       name: "",
       lastName: "",
       password: "",
-      usuarios: [],
       errorName: "",
       errorLast: "",
       msgEmail: "",
@@ -100,24 +99,24 @@ export default {
     };
   },
   computed: {
-    ...mapState(["emailRegister"]),
+    ...mapGetters('login',["usuariosRegistrados", "email"]),
   },
   methods: {
     registrar() {
       if (!this.validar()) {
         return;
       }
-
-      this.usuarios.push({
+  
+      this.usuariosRegistrados.push({
         name: this.name,
         lastName: this.lastName,
-        email: this.emailRegister,
+        email: this.email,
         password: this.password,
       });
 
-      localStorage.usuarios = JSON.stringify(this.usuarios);
+      localStorage.usuarios = JSON.stringify(this.usuariosRegistrados);
 
-      console.log(`${this.name} ${this.lastName}(${this.emailRegister}) te has registrado correctamente`);
+      console.log(`${this.name} ${this.lastName}(${this.email}) te has registrado correctamente`);
       this.name = "";
       this.lastName = "";
       this.password = "";
@@ -143,8 +142,7 @@ export default {
     },
   },
   mounted() {
-    if (localStorage.usuarios) this.usuarios = JSON.parse(localStorage.usuarios); 
-    if (this.emailRegister == "") this.$router.push('/login');
+    if (this.email == "") this.$router.push('/login');
   },
   watch: {
     name() {

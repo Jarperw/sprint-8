@@ -1,47 +1,39 @@
 <template>
   <div class="container my-4">
-    <div v-if="!pulsado">
+    <div v-if="!mostrar">
       <div
         class="alert mx-1 mx-lg-5"
         role="alert"
         v-for="(nave, index) in naves"
         :key="index"
-        @click="mostrar(nave)"
+        @click="mostrarNave(nave)"
       >
         <h5 class="text-uppercase">{{ nave.name }}</h5>
         <p>{{ nave.model }}</p>
       </div>
     </div>
-    <Nave
-      v-if="pulsado"
-      :nave="naveActual"
-      :pulsado="pulsado"
-      @pulsado="pulsado = $event"
-    />
+    <Nave v-if="mostrar"/>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 import Nave from "../components/Nave.vue";
 
 export default {
   components: { Nave },
   name: "Starships",
-  data() {
-    return {
-      pulsado: false,
-      naveActual: "",
-    };
-  },
   computed: {
     ...mapState(["naves", "url"]),
+    ...mapGetters(["mostrar"]),
   },
   methods: {
     ...mapActions(["buscar"]),
-    mostrar(nave) {
-      this.pulsado = true;
-      this.naveActual = nave;
+    ...mapMutations(["addNaveActual", "setMostrarNave"])
+    ,
+    mostrarNave(nave) {
+      this.setMostrarNave(true);
+      this.addNaveActual(nave);
     },
     handleScroll() {
       if (this.$route.name !== "starships") return;

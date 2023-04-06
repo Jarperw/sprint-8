@@ -13,7 +13,7 @@ export default {
   name: "SignIn",
   methods: {
     logout(){
-      this.$store.commit('setLogin', {valor: false, datos: ''});
+      this.$store.commit('login/setLogin', {valor: false, datos: ''});
       this.$router.push('/');
       console.log('Sesion cerrada.')
     }

@@ -5,7 +5,7 @@
     </div>
     <div
       class="piloto col-1 mx-1"
-      v-for="(piloto, index) in idPilotos"
+      v-for="(piloto, index) in idPolotos"
       :key="index"
     >
       <img
@@ -18,9 +18,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: "Pilotos",
-  props: ["idPilotos"],
+  computed: {
+    ...mapGetters(['idPolotos'])
+  },
 };
 </script>
 

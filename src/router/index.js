@@ -14,7 +14,7 @@ const router = createRouter({
       name: 'starships',
       component: () => import('../views/StarshipsView.vue'),
       beforeEnter: (to, from, next) => {
-        if(store.state.login == true){
+        if(store.state.login.login == true){
           next();
         }else{
           next('/login');
@@ -26,7 +26,7 @@ const router = createRouter({
       name: 'signIn',
       component: () => import('../views/SignInView.vue'),
       beforeEnter: (to, from, next) => {
-        if(store.state.login == true){
+        if(store.state.login.login == true){
           next();
         }else{
           next('/login');

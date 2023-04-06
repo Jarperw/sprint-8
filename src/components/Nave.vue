@@ -32,41 +32,30 @@
         <h6>edited: <span>{{ fecha(nave.edited) }}</span></h6>
       </div>
     </div>
-    <Pilotos :idPilotos="idPilotos" />
+    <Pilotos/>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex';
 import Pilotos from "./Pilotos.vue";
 
 export default {
   components: { Pilotos },
   name: "Nave",
-  props: ["nave", "pulsado"],
-  data() {
-    return {
-      idNave: "",
-      idPilotos: [],
-    };
+  computed: {
+    ...mapGetters(['nave', 'mostrar', 'idNave']),
   },
   methods: {
+    ...mapMutations(['setMostrarNave'])
+    ,
     volver() {
-      this.$emit("pulsado", false);
-    },
-    addIdNave() {
-      this.idNave = this.nave.url.replace(/[^0-9]+/g, "");
-    },
-    addIdPolotos() {
-      this.idPilotos = this.nave.pilots.map((item) => item.replace(/[^0-9]+/g, ""));
+      this.setMostrarNave(false);
     },
     fecha(fecha){
       fecha = new Date(fecha)
       return fecha.toLocaleString()
     }
-  },
-  created() {
-    this.addIdNave();
-    this.addIdPolotos();
   },
 };
 </script>
