@@ -50,7 +50,10 @@
               <Router-link class="nav-link text-white text-uppercase p-2" to="#" >Search</Router-link>
             </li>
             <li class="nav-item">
-              <Router-link class="nav-link text-white text-uppercase p-2 d-flex" :to="logged ? '/signIn': '/login'">
+              <Router-link v-if="login" class="nav-link text-white text-uppercase p-2 d-flex" to="/signIn">
+                <img class="pe-2" src="/icons/user.svg" alt="" />{{ datosLogin.name }}
+              </Router-link>
+              <Router-link v-else class="nav-link text-white text-uppercase p-2 d-flex" to="/login">
                 <img class="pe-2" src="/icons/user.svg" alt="" /> Sign In
               </Router-link>
             </li>
@@ -72,7 +75,10 @@
         </ul>
         <ul class="navbar-nav derecha ps-5 mb-5 border-top border-secondary">
           <li class="nav-item ms-3 mt-4">
-            <Router-link class="nav-link text-white d-flex" :to="logged ? '/signIn': '/login'">
+            <Router-link v-if="login" class="nav-link text-uppercase text-white d-flex" to="/signIn">
+              <img class="pe-2" src="/icons/user.svg" alt="" />{{ datosLogin.name }}
+            </Router-link>
+            <Router-link v-else class="nav-link text-white d-flex" to="/login">
               <img class="pe-2" src="/icons/user.svg" alt="" />SIGN IN
             </Router-link>
           </li>
@@ -133,6 +139,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: "Navegacion",
   data() {
@@ -142,6 +150,9 @@ export default {
       clicks: 0,
       logged: false,
     };
+  },
+  computed: {
+    ...mapState(['login', 'datosLogin']),
   },
   methods: {
     mostrar() {

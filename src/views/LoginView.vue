@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import Register from "../views/RegisterView.vue";
 
 export default {
@@ -62,6 +63,8 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['setLogin'])
+    ,
     continuar() {
       this.email = this.email.toLowerCase();
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -75,7 +78,7 @@ export default {
         const [usuario] = this.filtrar();
 
         if (usuario) {
-          console.log("el usuario existe, haz login");
+          console.log("el usuario existe,  inicia sesión");
           this.validacion = true;
         } else {
           console.log("registrate");
@@ -83,7 +86,7 @@ export default {
           this.$router.push("/register");
         }
       } else {
-        console.log("no existe localStorage.usuarios");
+        console.log("Crear localStorage.usuarios");
         this.$store.commit("addEmail", this.email);
         this.$router.push("/register");
       }
@@ -97,7 +100,8 @@ export default {
       const [usuario] = this.filtrar();
 
       if (usuario.password == this.password) {
-        console.log(`La sesion de ${usuario.name}, con correo ${usuario.email} esta iniciada`);
+        console.log(`Sesión iniciada por ${usuario.name}, con correo ${usuario.email}`);
+        this.setLogin({valor:true, datos:usuario});
         this.email = "";
         this.password = "";
         this.$router.push("/");

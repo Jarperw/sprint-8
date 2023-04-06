@@ -116,9 +116,8 @@ export default {
       });
 
       localStorage.usuarios = JSON.stringify(this.usuarios);
-      localStorage.sesionUsuarios = JSON.stringify(this.usuarios);
 
-      console.log(`registro ok de ${this.name} ${this.lastName} con correo ${this.emailRegister}`);
+      console.log(`${this.name} ${this.lastName}(${this.emailRegister}) te has registrado correctamente`);
       this.name = "";
       this.lastName = "";
       this.password = "";

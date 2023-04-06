@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import store from '../store'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,12 +12,26 @@ const router = createRouter({
     {
       path: '/starships',
       name: 'starships',
-      component: () => import('../views/StarshipsView.vue')
+      component: () => import('../views/StarshipsView.vue'),
+      beforeEnter: (to, from, next) => {
+        if(store.state.login == true){
+          next();
+        }else{
+          next('/login');
+        }
+      }
     },
     {
       path: '/signIn',
       name: 'signIn',
-      component: () => import('../views/SignInView.vue')
+      component: () => import('../views/SignInView.vue'),
+      beforeEnter: (to, from, next) => {
+        if(store.state.login == true){
+          next();
+        }else{
+          next('/login');
+        }
+      }
     },
     {
       path: '/login',
