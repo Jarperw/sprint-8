@@ -1,5 +1,5 @@
 <template>
-  <div class="card text-center ms-auto me-auto p-5 mt-4 rounded-1">
+  <div class="card text-center ms-auto me-auto p-5 my-4 rounded-1">
     <router-link to="/"
       ><img class="close" src="/icons/close.svg" alt=""
     /></router-link>
@@ -7,13 +7,13 @@
       <img class="w-75" src="/img/logo3.png"/>
     </div>
     <div v-if="!mostrar" class="d-flex flex-column">
-      <p class="text-warning fs-2">ENTER YOUR EMAIL ADDRESS</p>
+      <p class="amarillo fs-2">ENTER YOUR EMAIL ADDRESS</p>
       <input
         :class="{ 'border-danger text-danger': error }"
         class="form-control"
         type="email"
         v-model.trim="email"
-        placeholder="email"
+        placeholder="Email"
       />
       <small class="text-danger text-start mt-1">{{ error }}</small>
       <button class="w-100 btn btn-secondary mt-4" @click="continuar()">
@@ -22,7 +22,7 @@
     </div>
 
     <div v-else class="d-flex flex-column">
-      <p class="text-warning fs-2 p-0">ENTER YOUR PASSWORD</p>
+      <p class="amarillo fs-2 p-0">ENTER YOUR PASSWORD</p>
       <div class="d-flex">
         <img class="retroceder col-4 d-flex"
           type="button"
@@ -129,6 +129,12 @@ export default {
 .card {
   background: #171717;
   max-width: 34em;
+  .amarillo{
+    color:  #edd700;
+    @media (max-width: 435px) {
+      font-size: large !important;
+    }
+  }
   input {
     border-radius: 0.1em;
   }

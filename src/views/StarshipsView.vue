@@ -1,5 +1,5 @@
 <template>
-  <div class="container my-4">
+  <div class="container my-4" ref="prueba">
     <div v-if="!mostrar">
       <div
         class="alert mx-1 mx-lg-5"
@@ -22,6 +22,11 @@ import Nave from "../components/Nave.vue";
 
 export default {
   components: { Nave },
+  data() {
+    return {
+      scroll: '',
+    }
+  },
   name: "Starships",
   computed: {
     ...mapState(["naves", "url"]),
@@ -36,21 +41,28 @@ export default {
       this.addNaveActual(nave);
     },
     handleScroll() {
-      if (this.$route.name !== "starships") return;
-      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-      if (scrollTop + clientHeight >= scrollHeight) {
-        if (this.url !== null) this.buscar();
-      }
+      this.scroll = window.scrollY;
     },
   },
   created() {
-    if (this.url !== null) this.buscar();
+    this.setMostrarNave(false);
+    if (this.url == 'https://swapi.dev/api/starships/?page=1') this.buscar(this.url);
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
+  },
+  watch: {
+    scroll(valor){
+      if (this.url == null || this.mostrar) return;
+      const {scrollHeight, clientHeight } = document.documentElement;
+      if (valor + clientHeight >= scrollHeight) {
+        console.log('scroll');
+        this.buscar(this.url);
+      }
+    }
   },
 };
 </script>

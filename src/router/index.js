@@ -22,6 +22,18 @@ const router = createRouter({
       }
     },
     {
+      path: '/characters',
+      name: 'characters',
+      component: () => import('../views/CharactersView.vue'),
+      beforeEnter: (to, from, next) => {
+        if(store.state.login.login == true){
+          next();
+        }else{
+          next('/login');
+        }
+      }
+    },
+    {
       path: '/signIn',
       name: 'signIn',
       component: () => import('../views/SignInView.vue'),

@@ -47,7 +47,9 @@
         <div v-if="!mobile" class="derecha alinear d-flex align-items-end me-5">
           <ul class="navbar-nav flex-row pe-3 fw-bold">
             <li class="nav-item">
-              <Router-link class="nav-link text-white text-uppercase p-2" to="#" >Search</Router-link>
+              <Router-link class="nav-link text-white text-uppercase p-2" to="#" >
+                <img class="pe-2" src="/icons/search.svg" alt="" />Search
+              </Router-link>
             </li>
             <li class="nav-item">
               <Router-link v-if="logeado" class="nav-link text-white text-uppercase p-2 d-flex" to="/signIn">
@@ -71,6 +73,9 @@
           </li>
           <li class="nav-item ms-3 mb-2 position-relative">
             <Router-link class="nav-link" to="/starships"><span class="mob"></span>STARSHIPS</Router-link>
+          </li>
+          <li class="nav-item ms-3 mb-2 position-relative">
+            <Router-link class="nav-link" to="/characters"><span class="mob"></span>CHARACTERS</Router-link>
           </li>
         </ul>
         <ul class="navbar-nav derecha ps-5 mb-5 border-top border-secondary">
@@ -121,6 +126,9 @@
         </li>
         <li class="nav-item">
           <Router-link class="nav-link" to="/starships">STARSHIPS<span></span></Router-link>
+        </li>
+        <li class="nav-item">
+          <Router-link class="nav-link" to="/characters">CHARACTERS<span></span></Router-link>
         </li>
       </ul>
     </div>

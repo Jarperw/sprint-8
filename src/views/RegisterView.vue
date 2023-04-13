@@ -1,5 +1,5 @@
 <template>
-  <div class="card text-center ms-auto me-auto p-5 mt-4 rounded-1">
+  <div class="card text-center ms-auto me-auto p-5 my-4 rounded-1">
     <router-link to="/"
       ><img class="close" src="/icons/close.svg" alt=""
     /></router-link>
@@ -7,7 +7,7 @@
       <img class="w-75" src="/img/logo3.png" alt="" />
     </div>
     <div class="text-center text-white">
-      <p class="text-warning fs-2">CREATE YOUR ACCOUNT</p>
+      <p class="amarillo fs-2">CREATE YOUR ACCOUNT</p>
       <p class="text-secondary text-center mb-4">{{ email }}</p>
       <div class="d-flex flex-column">
         <input
@@ -38,19 +38,19 @@
           <input
             class="form-check-input"
             type="checkbox"
-            value=""
+            v-model="verContraseña"
             @click="mostrarContraseña()"
             id="flexCheckDefault"
           />
-          <small class="form-check-label ms-2" for="flexCheckDefault"
-            >Show password</small
+          <label class="form-check-label ms-2" for="flexCheckDefault"
+            ><small>Show password</small></label
           >
         </div>
         <div class="form-check">
           <input
             class="form-check-input"
             type="checkbox"
-            value="false"
+            v-model="condiciones"
             id="condiciones"
           />
           <label class="form-check-label text-start" for="condiciones">
@@ -96,6 +96,8 @@ export default {
       msgEmail: "",
       errorPassword: "",
       contraseña: "password",
+      verContraseña: false,
+      condiciones: false,
     };
   },
   computed: {
@@ -162,6 +164,12 @@ export default {
 .card {
   background: #171717;
   max-width: 34em;
+  .amarillo{
+    color:  #edd700;
+    @media (max-width: 435px) {
+      font-size: 1.25em !important;
+    }
+  }
   .close {
     position: absolute;
     top: 1em;
