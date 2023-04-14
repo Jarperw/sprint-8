@@ -14,6 +14,8 @@
         type="email"
         v-model.trim="email"
         placeholder="Email"
+        @keyup.enter="continuar()"
+        ref="input"
       />
       <small class="text-danger text-start mt-1">{{ error }}</small>
       <button class="w-100 btn btn-secondary mt-4" @click="continuar()">
@@ -37,6 +39,8 @@
         type="password"
         v-model.trim="password"
         placeholder="Password"
+        @keyup.enter="login()"
+        ref="input"
       />
       <small class="text-danger text-start mt-1">{{ error }}</small>
       <small class="text-end mt-3"><a href="#">Forgot your password?</a></small>
@@ -81,14 +85,14 @@ export default {
       if (localStorage.usuarios) {
         const [usuario] = this.filtrar;
         if (usuario) {
-          console.log("el usuario existe,  inicia sesión");
+          console.log("El usuario existe, introduce tu contraseña.");
           this.mostrar = true;
         } else {
-          console.log("registrate");
+          console.log("Registrate");
           this.$router.push("/register");
         }
       } else {
-        console.log("Crear localStorage.usuarios");
+        console.log("Crear localStorage.usuarios.");
         this.$router.push("/register");
       }
     },
@@ -106,7 +110,6 @@ export default {
         this.password = "";
         this.$router.push("/");
       } else {
-        console.log("contraseña incorrecta");
         this.error = "The credentials you entered are incorrect.";
       }
     },
@@ -120,7 +123,11 @@ export default {
     },
   },
   mounted() {
-    if (localStorage.usuarios) this.addUsuarios(JSON.parse(localStorage.usuarios)); 
+    if (localStorage.usuarios) this.addUsuarios(JSON.parse(localStorage.usuarios));
+    this.$refs.input.focus();
+  },
+  updated() {
+    this.$refs.input.focus();
   },
 };
 </script>

@@ -18,18 +18,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
   name: "Pilotos",
   computed: {
-    ...mapGetters(['idPolotos'])
+    ...mapGetters(["idPolotos"]),
   },
 };
 </script>
 
 <style lang="scss" scoped>
-
 .pilotos {
   margin: 2em 0em 0.4em 0em;
   h6 {
@@ -67,5 +66,4 @@ export default {
     margin: 2em 6em 0.4em 6em;
   }
 }
-
 </style>

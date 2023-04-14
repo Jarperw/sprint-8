@@ -1,5 +1,5 @@
 <template>
-  <div class="container py-5 text-white">
+  <div class="container py-5 text-white bg-black">
     <div class="info card mb-3 mx-auto mx-md-5">
       <div class="row g-0">
         <div class="col-md-4">
@@ -120,7 +120,6 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 1400px;
-  background: #000;
   .close{
     cursor: pointer;
     position: absolute;

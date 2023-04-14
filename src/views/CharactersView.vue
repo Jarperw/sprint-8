@@ -1,25 +1,27 @@
 <template>
-  <div v-if="!mostrarPersonaje" class="container-fluid text-white bg-black">
-    <div class="position-relative mx-sm-3">
-      <h4 class="pt-3 pt-md-5 pb-2 mb-4">Characters</h4>
-      <span class="efecto3"></span>
-    </div>
-    <div class="d-flex flex-wrap justify-content-center mt-1">
-      <div @click="verPersonaje(item)" v-for="(item, index) in personajes" :key="index" class="card">
-        <img :src="`https://starwars-visualguide.com/assets/img/characters/${idUrl(item.url)}.jpg`" class="card-img-top"/>
-        <div class="card-body">
-          <div class="d-flex">
-            <span class="efecto"></span>
-            <span class="efecto2 ms-1"></span>
+  <div>
+    <div v-if="!mostrarPersonaje" class="container-fluid text-white bg-black">
+      <div class="position-relative mx-sm-3">
+        <h4 class="pt-3 pt-md-5 pb-2 mb-4">Characters</h4>
+        <span class="efecto3"></span>
+      </div>
+      <div class="d-flex flex-wrap justify-content-center mt-1">
+        <div @click="verPersonaje(item)" v-for="(item, index) in personajes" :key="index" class="card">
+          <img :src="`https://starwars-visualguide.com/assets/img/characters/${idUrl(item.url)}.jpg`" class="card-img-top"/>
+          <div class="card-body">
+            <div class="d-flex">
+              <span class="efecto"></span>
+              <span class="efecto2 ms-1"></span>
+            </div>
+            <p class="card-text fw-bold mt-2 mb-3">
+              {{ item.name }}
+            </p>
           </div>
-          <p class="card-text fw-bold mt-2 mb-3">
-            {{ item.name }}
-          </p>
         </div>
       </div>
     </div>
+    <Personaje v-if="mostrarPersonaje"/>
   </div>
-  <Personaje v-if="mostrarPersonaje"/>
 </template>
 
 <script>
@@ -64,10 +66,10 @@ export default {
   },
   watch: {
    scroll(valor){
-     if (this.urlPersonajes == null || this.mostrarPersonaje) return;
      const {scrollHeight, clientHeight } = document.documentElement;
+     
+     if (this.urlPersonajes == null || this.mostrarPersonaje || valor < this.$el.offsetTop ) return;
      if (valor + clientHeight >= scrollHeight) {
-       console.log('scroll');
        this.buscar(this.urlPersonajes);
       }
     }

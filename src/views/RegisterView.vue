@@ -16,6 +16,8 @@
           type="text"
           v-model.trim="name"
           placeholder="Nombre"
+          @keyup.enter="registrar()"
+          ref="input1"
         />
         <small class="text-danger text-start my-1">{{ errorName }}</small>
         <input
@@ -24,6 +26,8 @@
           type="text"
           v-model.trim="lastName"
           placeholder="Apellido"
+          @keyup.enter="registrar()"
+          ref="input2"
         />
         <small class="text-danger text-start my-1">{{ errorLast }}</small>
         <input
@@ -32,6 +36,8 @@
           :type="[contraseña]"
           v-model.trim="password"
           placeholder="Password"
+          @keyup.enter="registrar()"
+          ref="input3"
         />
         <small class="text-danger text-start my-1">{{ errorPassword }}</small>
         <div class="checkpass text-start my-3">
@@ -98,6 +104,7 @@ export default {
       contraseña: "password",
       verContraseña: false,
       condiciones: false,
+      count: 0,
     };
   },
   computed: {
@@ -105,7 +112,7 @@ export default {
   },
   methods: {
     registrar() {
-      if (!this.validar()) {
+      if (this.validar() < 3) {
         return;
       }
   
@@ -118,26 +125,33 @@ export default {
 
       localStorage.usuarios = JSON.stringify(this.usuariosRegistrados);
 
-      console.log(`${this.name} ${this.lastName}(${this.email}) te has registrado correctamente`);
+      console.log(`${this.name} ${this.lastName}(${this.email}) te has registrado correctamente.`);
+      console.log(`Ya puedes logearte.`);
       this.name = "";
       this.lastName = "";
       this.password = "";
       this.$router.push("/login");
     },
     validar() {
-      if (this.name == "") {
-        this.errorName = "Please enter your first name.";
-        return false;
+      this.count = 3;
+
+      if (this.password.length < 6) {
+        this.errorPassword = "Please enter a password min 6 characters.";
+        this.count -= 1;
+        this.$refs.input3.focus();
       }
       if (this.lastName == "") {
         this.errorLast = "Please enter your last name.";
-        return false;
+        this.count -= 1;
+        this.$refs.input2.focus();
       }
-      if (this.password.length < 6) {
-        this.errorPassword = "Please enter a password min 6 characters.";
-        return false;
+      if (this.name == "") {
+        this.errorName = "Please enter your first name.";
+        this.count -= 1;
+        this.$refs.input1.focus();
       }
-      return true;
+
+      return this.count;
     },
     mostrarContraseña() {
       this.contraseña = this.contraseña == "password" ? "text" : "password";
@@ -145,6 +159,7 @@ export default {
   },
   mounted() {
     if (this.email == "") this.$router.push('/login');
+    this.$refs.input1.focus();
   },
   watch: {
     name() {

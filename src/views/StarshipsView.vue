@@ -1,5 +1,5 @@
 <template>
-  <div class="container my-4" ref="prueba">
+  <div class="container my-4">
     <div v-if="!mostrar">
       <div
         class="alert mx-1 mx-lg-5"
@@ -56,10 +56,10 @@ export default {
   },
   watch: {
     scroll(valor){
-      if (this.url == null || this.mostrar) return;
       const {scrollHeight, clientHeight } = document.documentElement;
+
+      if (this.url == null || this.mostrar || valor < this.$el.offsetTop ) return;
       if (valor + clientHeight >= scrollHeight) {
-        console.log('scroll');
         this.buscar(this.url);
       }
     }
