@@ -126,7 +126,7 @@ export default {
       localStorage.usuarios = JSON.stringify(this.usuariosRegistrados);
 
       console.log(`${this.name} ${this.lastName}(${this.email}) te has registrado correctamente.`);
-      console.log(`Ya puedes logearte.`);
+      console.log(`Ya puedes loguearte.`);
       this.name = "";
       this.lastName = "";
       this.password = "";
