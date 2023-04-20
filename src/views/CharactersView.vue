@@ -18,6 +18,7 @@
             </p>
           </div>
         </div>
+        <div ref="last"></div>
       </div>
     </div>
     <Personaje v-if="mostrarPersonaje"/>
@@ -52,26 +53,30 @@ export default {
     verPersonaje(personaje){ 
       this.addPersonajeActual(personaje);
       this.setMostrarPersonaje(true);
+    },
+    //scroll infinito explicado en starshipsview
+    async addObserver(){
+      await this.$nextTick();
+
+      const options = { root: document, rootMargin: '5px', threshold: 0 };
+
+      const callback = (entries) => {
+        if(entries[0].isIntersecting && this.urlPersonajes != null){
+          this.buscar(this.urlPersonajes)
+        }
+      }
+
+      this.observer = new IntersectionObserver(callback, options);
+      this.observer.observe(this.$refs.last)
     }
   },
   created() {
     this.setMostrarPersonaje(false);
-    if(this.urlPersonajes == 'https://swapi.py4e.com/api/people/?page=1') this.buscar(this.urlPersonajes);
-  },
-  mounted() {
-    window.addEventListener("scroll", this.handleCharactersScroll);
-  },
-  beforeDestroy() {
-    window.removeEventListener("scroll", this.handleCharactersScroll);
+    if(this.urlPersonajes == 'https://swapi.py4e.com/api/people/?page=1') this.addObserver();
   },
   watch: {
-   scroll(valor){
-     const {scrollHeight, clientHeight } = document.documentElement;
-     
-     if (this.urlPersonajes == null || this.mostrarPersonaje || valor < this.$el.offsetTop ) return;
-     if (valor + clientHeight >= scrollHeight) {
-       this.buscar(this.urlPersonajes);
-      }
+    mostrarPersonaje(valor){
+      if(!valor) this.addObserver()
     }
   },
 };
