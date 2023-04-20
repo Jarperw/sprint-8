@@ -54,7 +54,6 @@ export default {
       this.addPersonajeActual(personaje);
       this.setMostrarPersonaje(true);
     },
-    //scroll infinito explicado en starshipsview
     async addObserver(){
       await this.$nextTick();
 

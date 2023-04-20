@@ -11,6 +11,7 @@
       class="border-bottom border-3 border-primary mb-4"
       :src="`https://starwars-visualguide.com/assets/img/starships/${idNave}.jpg`"
       :alt="nave.name"
+      onerror="this.src= '/img/no.png'"
     />
     <h6>model: <span>{{ nave.model }}</span></h6>
     <h6>starship class: <span>{{ nave.starship_class }}</span></h6>

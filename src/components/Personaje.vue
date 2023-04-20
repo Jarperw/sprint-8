@@ -80,7 +80,11 @@
           v-for="(item, index) in idNavesPersonaje"
           :key="index"
         >
-          <img :src="`https://starwars-visualguide.com/assets/img/starships/${item}.jpg`" class="card-img-top"/>
+          <img 
+            :src="`https://starwars-visualguide.com/assets/img/starships/${item}.jpg`"
+            onerror="this.src= '/img/no.png'"
+            class="card-img-top"
+          />
           <div class="card-body">
             <div class="d-flex mb-3">
               <span class="efecto"></span>
