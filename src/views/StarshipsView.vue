@@ -58,12 +58,12 @@ export default {
   },
   created() {
     this.setMostrarNave(false);
-    if (this.url == 'https://swapi.dev/api/starships/?page=1') this.addObserver(); 
+    this.addObserver(); 
   },
   watch: {
     mostrar(valor){
       if(!valor)this.addObserver()
-    }
+    },
   },
 };
 </script>

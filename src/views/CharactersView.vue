@@ -71,7 +71,7 @@ export default {
   },
   created() {
     this.setMostrarPersonaje(false);
-    if(this.urlPersonajes == 'https://swapi.py4e.com/api/people/?page=1') this.addObserver();
+    this.addObserver();
   },
   watch: {
     mostrarPersonaje(valor){
